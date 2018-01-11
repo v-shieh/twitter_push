@@ -2,8 +2,7 @@
 
 from random import choice
 from sys import argv
-import twitter
-import os
+
 
 def open_and_read_file(file_path):
     """Take file path as string; return text as string.
@@ -94,30 +93,7 @@ def make_text(chains):
     tweet_str = joined_words[:140]
     return tweet_str
 
-def tweet(tweet_str):
-    """Create a tweet and send it to the Internet."""
 
-    # Use Python os.environ to get at environmental variables
-    # Note: you must run `source secrets.sh` before running this file
-    # to make sure these environmental variables are set.
-
-    api = twitter.Api(
-        consumer_key=os.environ['TWITTER_CONSUMER_KEY'],
-        consumer_secret=os.environ['TWITTER_CONSUMER_SECRET'],
-        access_token_key=os.environ['TWITTER_ACCESS_TOKEN_KEY'],
-        access_token_secret=os.environ['TWITTER_ACCESS_TOKEN_SECRET'])
-
-    print api.VerifyCredentials()
-
-    status = api.PostUpdate(tweet_str)
-    print status.text
-
-    # user_confirmation = raw_input("Enter to tweet again [q to quit] > ")
-
-    # if user_confirmation.lower() == 'q':
-    #     break
-    # else:
-        
 
 
 input_path = argv[1]
@@ -129,9 +105,4 @@ input_text = open_and_read_file(input_path)
 # Get a Markov chain
 chains = make_chains(input_text, n)
 
-# Produce random text
 random_text = make_text(chains)
-
-print random_text
-
-tweets = tweet(random_text)
